@@ -77,7 +77,7 @@ printf("\n\t\t\tRegistrar Login: ");
                  }
 
 return 0 ;
-}
+
 
 
 
@@ -86,7 +86,6 @@ return 0 ;
 
 void main(){
 
-    senha();
 
 
  int opcao;
@@ -156,6 +155,33 @@ system("cls");
 
 
  }
+
+
+ void Listar(){
+FILE*arquivo = fopen("arquivo_palavra.txt","r");
+ CADASTRO cds;
+
+ while(fread(&cds,sizeof(CADASTRO),1,arquivo))
+ {
+
+     printf("%s\n",cds.nome);
+
+ }
+ close(arquivo);
+ return 0;
+ }
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
  void inputCadastro(){
