@@ -13,95 +13,61 @@ char sexo[10];
 char local[40];
 char pais[40];
 char equipamento[40];
+char modalidade[40];
 
 
 
-int idade;
-int equipe;
-int alojamento;
+int data[10];
+int idade[10];
+int equipe[10];
+int alojamento[10];
 };
+typedef struct medico MEDICO;
+    struct medico{
+
+
+
+
+        char nome[40];
+        char sexo[10];
+        int idade[20];
+        int ra[10];
+        int equipe[10];
+
+
+};
+
+
 
 void cabecalho();
 void cabecalho1();
+void cabecalhoMed();
+
 void inputCadastro();
 void Listar();
-void senha();
-
-
-
-
-
-void senha(){
-
-    char login;
-    char senha;
-    char reg1;
-    char reg2;
-    char robo;
-
-
-
-printf("\n\t\t\t--REGISTRAR--");
-printf("\n\t\t\tRegistrar Login: ");
-      scanf("%s",&reg1);
-
-      printf("\n\n\t\tRegistrar Senha: ");
-       scanf("%s", &reg2);
-
-
-       printf("\n\t\t\tUsuario registrado!\n\n CONFIRME QUE NAO É UM ROBO, DIGITE *S*: ");
-         scanf("%s",&robo);
-
-         system("cls");
-
-         printf("\n\t\t\t --LOGIN--");
-         printf("\n\n\t\tlogin: ");
-           scanf("%s", &login);
-
-
-           printf("\n\n\t\t\tSenha: ");
-           scanf("%s", &senha);
-
-
-           if(login ==reg1){
-            printf("Usuario logado!");
-            }
-             else if(login!=reg1){
-                printf("Dados invalidos");
-                }
-                else if(senha == reg2){
-                 printf("Usuario logado!");
-                }
-                 else if(senha!=reg2){
-                    printf("Dados invalidos");
-                 }
-
-return 0 ;
-
-
-
-
-
+void inputCadastro2();
+void listarMedicos();
 
 
 void main(){
-
-
-
  int opcao;
    setlocale(LC_ALL, "Portuguese");
 
 
  do{
- cabecalho();
+
+ printf("-----------------------CADASTRO---------------\n");
+
  printf("1-CADASTRO DE ATLETAS \n");
- printf("2-CADASTRO DE MÉDICOS \n");
- printf("3-CADASTRO DE FUNCIONÁRIOS \n");
- printf("4-CADASTRO DE VOLUNTÁRIOS \n");
+ printf("2-RELATORIO DE ATLETAS \n");
+ printf("3-CADASTRO DE MEDICOS \n");
+ printf("4-CADASTRO DE MEDICOS \n");
  printf("5- COVID");
  printf("\n6- SAIR  ");
  printf("\n \n SELECIONE UMA OPÇÃO: ");
  scanf("%d" ,&opcao);
+
+ system("cls");
 
  switch(opcao){
 
@@ -113,17 +79,18 @@ inputCadastro();
 
 break;
 
-case 2:// historico de pesquisa atletas
-
+case 2:
+    Listar ();// historico de pesquisa atletas
 break;
 
-case 3: //cadastro dos funcionarios
+case 3:
+    system("cls");
+     inputCadastro2();
 break;
 
-case 4: //cadastro dos voluntarios
-break;
+case 4:listarMedicos();
 
-case 5: //covid
+case 5:
 break;
 
 case 6:
@@ -140,137 +107,179 @@ default:
  }
 
    } while(opcao != 6);
-;
+
+ system("cls");
 }
-
-
-void cabecalho(){
-system("cls");
- printf("--------------------CADASTRO DE EQUIPES--------------------------------- \n");
- }
-
- void cabecalho1(){
- printf("----------------------------- CADASTRO DOS ATLETAS ------------------------\n");
-
-
-
- }
-
-
- void Listar(){
-FILE*arquivo = fopen("arquivo_palavra.txt","r");
- CADASTRO cds;
-
- while(fread(&cds,sizeof(CADASTRO),1,arquivo))
- {
-
-     printf("%s\n",cds.nome);
-
- }
- close(arquivo);
- return 0;
- }
-}
-
-
-
-
-
-
-
-
-
 
 
 
 
  void inputCadastro(){
+ FILE*arquivo;
+ CADASTRO cds;
 
-    FILE*arquivo;
+ arquivo = fopen("agenda.txt" ,"ab");
+    if(arquivo ==NULL){
 
-    CADASTRO cds;
-char nome[40];
- char sexo[40];
- char local[40];
- char pais[40];
- char equipamento[40];
- char modalidade[40];
+        printf("Problemas na abertura do arquivo!\n");
 
- int equipe;
- int alojamento;
- int idade;
+    }else{
+        do{
 
-  arquivo= fopen("arquivo_palavra.txt", "w");
-
-
-  if(arquivo == NULL)
-  {
-  printf("Erro na abertura do arquivo!");
-  return 1;
-  }
-
-
-            printf("nome: ");
-            scanf("%s" , &nome);
+            fflush(stdin);
+            printf("\n Digite o nome: ");
             gets(cds.nome);
 
 
-
-            fflush(stdin);
-            printf("sexo: ");
-            scanf("%s", &sexo);
+             fflush(stdin);
+            printf("\nDigite o sexo: ");
             gets(cds.sexo);
 
-                  fflush(stdin);
-                  printf("idade: ");
-                scanf("%d", &idade);
-                   gets(cds.idade);
+             fflush(stdin);
+            printf("\nDigite o local: ");
+            gets(cds.local);
+
+            fflush(stdin);
+            printf("\n Digite sua modalidade olimpica: ");
+            gets(cds.modalidade);
+
+            fflush(stdin);
+            printf("\n Data do jogo: ");
+            gets(cds.data);
+
+             fflush(stdin);
+            printf("\nDigite o pais: ");
+            gets(cds.pais);
+
+             fflush(stdin);
+            printf("\nDigite o equipamento:");
+            gets(cds.equipamento);
+
+            fflush(stdin);
+            printf("\nDigite a idade: ");
+            gets(cds.idade);
 
 
-                   fflush(stdin);
-            printf("Numero do alojamento: ");
-            scanf("%d",&alojamento);
-                  gets(cds.alojamento);
+             fflush(stdin);
+            printf("\nDigite o número da equipe: ");
+            gets(cds.equipe);
+
+
+             fflush(stdin);
+            printf("\nDigite o alojamento: ");
+            gets(cds.alojamento);
+
+            fwrite(&cds ,sizeof(CADASTRO),1,arquivo);
+            printf("Deseja continuar(s\n)?");
+
+        }while(getche()=='s');
+        fclose(arquivo);
+        system("cls");
+    }
+ }
+void Listar (){
+ FILE*arquivo;
+ CADASTRO cds;
+
+ arquivo = fopen("agenda.txt" ,"rb");
+    if(arquivo ==NULL){
+
+        printf("Problemas na abertura do arquivo!\n");
+    }else{
+
+      while(fread(&cds , sizeof(CADASTRO),1,arquivo)==1){
+            printf("Nome: %s\n" ,cds.nome);
+            printf("Sexo: %s\n" ,cds.sexo);
+            printf("Local: %s\n" ,cds.local);
+            printf("Pais: %s\n" ,cds.pais);
+            printf("Equipamento: %s\n" ,cds.equipamento);
+            printf("Idade: %s\n" ,cds.idade);
+            printf("Equipe: %s\n" ,cds.equipe);
+            printf("Alojamento: %s\n" ,cds.alojamento);
+            printf("Modalidade olimpica: %s \n", cds.modalidade);
+            printf("Data do jogo: %s", cds.data);
+            printf("\n\n\n");
+
+
+    }
+
+}
+fclose(arquivo);
+    getch();
+
+    }
 
 
 
-                  fflush(stdin);
-            printf("Numero da equipe: ");
-            scanf("%d", &equipe);
-                  gets(cds.equipe);
-
-                     fflush(stdin);
-            printf("Local do treino: ");
-            scanf("%s", &local);
-                     gets(cds.local);
+    void inputCadastro2(){
 
 
 
-                  fflush(stdin);
-            printf("Equipamentos esportivos: ");
-            scanf("%s", &equipamento);
-                          gets(cds.equipamento);
+ FILE*arq;      //CADASTRO DE MEDICOS
+MEDICO cds1;
+
+ arq = fopen("cadastroMedicos.txt" ,"ab");
+    if(arq==NULL){
+
+        printf("Problemas na abertura do arquivo!\n");
+    }else{
+        do{
+
+             printf("-------------------------CADASTRO DE MEDICOS------------------\n");
+            fflush(stdin);
+            printf("\n Digite o nome: ");
+            gets(cds1.nome);
 
 
-                        fflush(stdin);
-                        printf("Pais de origem: ");
-                        scanf("%s", &pais);
-                              gets(cds.pais);
-
-
-
+             fflush(stdin);
+            printf("\nDigite o sexo: ");
+            gets(cds1.sexo);
 
 
 
 
-  //usando fprintf para armazenar a string no arquivo
-  fprintf(arquivo, " nome:%s\n sexo:%s\n idade:%d\n alojamento:%d\n equipe:%d\n local:%s\n equipamento:%s\n pais:%s",nome,sexo,idade,alojamento,equipe,local,equipamento,pais);
+             fflush(stdin);
+            printf("\nDigite sua idade: ");
+            gets(cds1.idade);
 
-  //usando fclose para fechar o arquivo
-  fclose(arquivo);
 
-  printf("Dados gravados com sucesso!");
+            fflush(stdin);
+            printf("\n Digite o numero da sua equipe ");
+            gets(cds1.equipe);
 
-  getch();
-  return(0);
+
+            fwrite(&cds1 ,sizeof(MEDICO),1,arq);
+            printf("Deseja continuar(s\n)?");
+
+        }while(getche()=='s');
+        fclose(arq);
+    }
+ }
+
+listarMedicos(){
+    printf("-------------------RELATORIO DE MEDICOS----------------\n");
+     FILE*arq;
+MEDICO cds1;
+
+
+ arq = fopen("cadastroMedicos.txt" ,"rb");
+    if(arq ==NULL){
+
+        printf("Problemas na abertura do arquivo!\n");
+    }else{
+
+      while(fread(&cds1 , sizeof(MEDICO),1,arq)==1){
+            printf("Nome: %s\n" ,cds1.nome);
+            printf("Sexo: %s\n" ,cds1.sexo);
+            printf("idade: %s\n" ,cds1.idade);
+            printf("Equipe: %s\n" ,cds1.equipe);
+
+
+            printf("\n\n\n");
+
+
+    }
+    fclose(arq);
+    }
+    getch();
 }
