@@ -38,12 +38,27 @@ typedef struct medico MEDICO;
 };
 
 
+typedef struct funcionario FUNCIONARIO;
+  struct funcionario{
+
+
+        char nome[40];
+        char sexo[10];
+        char cargo[15];
+        int idade[20];
+
+
+  };
+
+
 
 void cabecalho();
 void cabecalho1();
 void cabecalhoMed();
 
 void inputCadastro();
+void listarFuncionarios();
+void cadastroFuncionario();
 void Listar();
 void inputCadastro2();
 void listarMedicos();
@@ -61,9 +76,11 @@ void main(){
  printf("1-CADASTRO DE ATLETAS \n");
  printf("2-RELATORIO DE ATLETAS \n");
  printf("3-CADASTRO DE MEDICOS \n");
- printf("4-CADASTRO DE MEDICOS \n");
- printf("5- COVID");
- printf("\n6- SAIR  ");
+ printf("4-RELATORIO DE MEDICOS \n");
+ printf("5-CADASTRO FUNCIONARIOS\n");
+printf("6-RELATORIO DE FUNCIONARIOS\n");
+
+ printf("\n7- SAIR  ");
  printf("\n \n SELECIONE UMA OPÇÃO: ");
  scanf("%d" ,&opcao);
 
@@ -88,14 +105,23 @@ case 3:
      inputCadastro2();
 break;
 
-case 4:listarMedicos();
+case 4:
+    listarMedicos();
+    break;
 
 case 5:
+    cadastroFuncionario();
 break;
 
+
 case 6:
+    listarFuncionarios();
+break;
+
+case 7:
     printf("Obrigado pela sua visita!");
     getch();
+     system("cls");
 break;
 
 default:
@@ -106,7 +132,7 @@ default:
 
  }
 
-   } while(opcao != 6);
+   } while(opcao != 7);
 
  system("cls");
 }
@@ -127,46 +153,46 @@ default:
         do{
 
             fflush(stdin);
-            printf("\n Digite o nome: ");
+            printf("Digite o nome: ");
             gets(cds.nome);
 
 
              fflush(stdin);
-            printf("\nDigite o sexo: ");
+            printf("Digite o sexo: ");
             gets(cds.sexo);
 
              fflush(stdin);
-            printf("\nDigite o local: ");
+            printf("Digite o local: ");
             gets(cds.local);
 
             fflush(stdin);
-            printf("\n Digite sua modalidade olimpica: ");
+            printf("Digite sua modalidade olimpica: ");
             gets(cds.modalidade);
 
             fflush(stdin);
-            printf("\n Data do jogo: ");
+            printf("Data do jogo: ");
             gets(cds.data);
 
              fflush(stdin);
-            printf("\nDigite o pais: ");
+            printf("Digite o pais: ");
             gets(cds.pais);
 
              fflush(stdin);
-            printf("\nDigite o equipamento:");
+            printf("Digite o equipamento: ");
             gets(cds.equipamento);
 
             fflush(stdin);
-            printf("\nDigite a idade: ");
+            printf("Digite a idade: ");
             gets(cds.idade);
 
 
              fflush(stdin);
-            printf("\nDigite o número da equipe: ");
+            printf("Digite o número da equipe: ");
             gets(cds.equipe);
 
 
              fflush(stdin);
-            printf("\nDigite o alojamento: ");
+            printf("Digite o alojamento: ");
             gets(cds.alojamento);
 
             fwrite(&cds ,sizeof(CADASTRO),1,arquivo);
@@ -201,11 +227,13 @@ void Listar (){
             printf("\n\n\n");
 
 
+
     }
 
 }
 fclose(arquivo);
     getch();
+     system("cls");
 
     }
 
@@ -227,36 +255,43 @@ MEDICO cds1;
 
              printf("-------------------------CADASTRO DE MEDICOS------------------\n");
             fflush(stdin);
-            printf("\n Digite o nome: ");
+            printf("Digite o nome: ");
             gets(cds1.nome);
 
 
              fflush(stdin);
-            printf("\nDigite o sexo: ");
+            printf("Digite o sexo: ");
             gets(cds1.sexo);
 
 
 
 
              fflush(stdin);
-            printf("\nDigite sua idade: ");
+            printf("Digite sua idade: ");
             gets(cds1.idade);
 
 
             fflush(stdin);
-            printf("\n Digite o numero da sua equipe ");
+            printf("Digite o numero da sua equipe ");
             gets(cds1.equipe);
 
 
             fwrite(&cds1 ,sizeof(MEDICO),1,arq);
             printf("Deseja continuar(s\n)?");
+                        system("cls");
+
+
+
+
+
+
 
         }while(getche()=='s');
         fclose(arq);
     }
  }
 
-listarMedicos(){
+void listarMedicos(){
     printf("-------------------RELATORIO DE MEDICOS----------------\n");
      FILE*arq;
 MEDICO cds1;
@@ -282,4 +317,92 @@ MEDICO cds1;
     fclose(arq);
     }
     getch();
+     system("cls");
+
+}
+
+
+   void cadastroFuncionario(){
+
+
+
+ FILE*arq2;      //CADASTRO DE funcionarios
+FUNCIONARIO cds2;
+
+ arq2 = fopen("cadastrofuncionario.txt" ,"ab");
+    if(arq2==NULL){
+
+        printf("Problemas na abertura do arquivo!\n");
+    }else{
+        do{
+
+             printf("-------------------------CADASTRO DE FUNCIONARIOS------------------\n");
+            fflush(stdin);
+            printf("Digite o nome: ");
+            gets(cds2.nome);
+
+
+             fflush(stdin);
+            printf("Digite o sexo: ");
+            gets(cds2.sexo);
+
+
+
+
+             fflush(stdin);
+            printf("Digite sua idade: ");
+            gets(cds2.idade);
+
+
+            fflush(stdin);
+            printf("Digite o seu cargo: ");
+            gets(cds2.cargo);
+
+
+            fwrite(&cds2 ,sizeof(FUNCIONARIO),1,arq2);
+            printf("Deseja continuar(s\n)?");
+                        system("cls");
+
+
+
+
+
+
+
+        }while(getche()=='s');
+        fclose(arq2);
+    }
+ }
+
+void listarFuncionarios(){
+    printf("-------------------RELATORIO DE FUNCIONARIOS----------------\n");
+     FILE*arq2;
+FUNCIONARIO cds2;
+
+
+ arq2 = fopen("cadastrofuncionario.txt" ,"rb");
+    if(arq2 ==NULL){
+
+        printf("Problemas na abertura do arquivo!\n");
+    }else{
+
+      while(fread(&cds2 , sizeof(FUNCIONARIO),1,arq2)==1){
+            printf("Nome: %s\n" ,cds2.nome);
+            printf("Sexo: %s\n" ,cds2.sexo);
+            printf("idade: %s\n" ,cds2.idade);
+            printf("cargo: %s\n" ,cds2.cargo);
+
+
+            printf("\n\n\n");
+
+
+
+    }
+    fclose(arq2);
+    }
+    getch();
+     system("cls");
+
+
+
 }
